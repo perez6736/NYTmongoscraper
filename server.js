@@ -1,21 +1,29 @@
 // Dependencies
 var express = require("express");
-var mongojs = require("mongojs");
 var bodyParser = require("body-parser");
 var logger = require("morgan");
 
 // server setup ==============================================================
+
+// Our scraping tools
+var axios = require("axios");
+var cheerio = require("cheerio");
+
 var app = express();
 
-// Serve static content 
-app.use(express.static("public"));
+// Require all models
+var db = require("./models");
 
 // Sets an initial port. We"ll use this later in our listener
 var PORT = process.env.PORT || 3000;
 
-// Sets up the Express app to handle data parsing
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+// Use morgan logger for logging requests
+app.use(logger("dev"));
+// Use body-parser for handling form submissions
+app.use(bodyParser.urlencoded({ extended: false }));
+// Use express.static to serve the public folder as a static directory
+app.use(express.static("public"));
+
 
 // Set Handlebars ================================================================
 var exphbs = require("express-handlebars");
