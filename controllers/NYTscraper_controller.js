@@ -39,9 +39,9 @@ router.get("/", function(req, res){
               });
           }
         });
-
+        
         console.log(results);
-        res.render("index", results);
+
     });
 
 });
