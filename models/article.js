@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 
 var Schema = mongoose.Schema;
 
-var Articles = new Schema({
+var Articleschema = new Schema({
 	title: {
 		type: String,
 		required: true,
@@ -10,6 +10,7 @@ var Articles = new Schema({
 	link: {
 		type: String,
 		required: true,
+		unique: true //we want unique links. 
 	},
 	issaved: {
 		type: Boolean,
@@ -25,7 +26,7 @@ var Articles = new Schema({
 	}
 });
 
-Articles.index({title: "text"});
+Articleschema.index({title: "text"});
 
-var Article  = mongoose.model("Article", Articles);
+var Article  = mongoose.model("Article", Articleschema);
 module.exports = Article;

@@ -5,11 +5,7 @@ var logger = require("morgan");
 
 // server setup ==============================================================
 
-
 var app = express();
-
-// Require all models
-//var db = require("./models");
 
 // Sets an initial port. We"ll use this later in our listener
 var PORT = process.env.PORT || 3000;
