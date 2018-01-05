@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+
 var Schema = mongoose.Schema;
 
 var Articles = new Schema({
@@ -9,7 +10,6 @@ var Articles = new Schema({
 	link: {
 		type: String,
 		required: true,
-	},
 	},
 	issaved: {
 		type: Boolean,
