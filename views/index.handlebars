@@ -15,7 +15,7 @@
           <div class="panel-body" id="well-section">
               {{#each articles}}
               <div class="panel panel-default">
-                <div class="panel-heading"> {{title}}
+                <div class="panel-heading"> <a href= {{link}}> {{title}} </a> 
                     <button class = "btn btn-primary saveArticle" data-id = {{_id}} type="save">Save Article </button>
                 </div>
               </div>
