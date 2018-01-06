@@ -2,11 +2,10 @@ $(document).ready(function(){
     // hide the notes 
     $(".notes").hide();
 
-    // we can use this function to save AND unsave
     function saveArticle(){
         // Grab the id associated with the article from the submit button
         var thisId = $(this).attr("data-id");
-        // Run a POST request to change the note, using what's entered in the inputs
+
         $.ajax({
             method: "POST",
             url: "/save/" + thisId,
@@ -25,7 +24,7 @@ $(document).ready(function(){
     function unsaveArticle(){
         // Grab the id associated with the article from the submit button
         var thisId = $(this).attr("data-id");
-        // Run a POST request to change the note, using what's entered in the inputs
+
         $.ajax({
             method: "POST",
             url: "/unsave/" + thisId,
@@ -59,7 +58,18 @@ $(document).ready(function(){
         var title = $(".title[data-id="+thisId+"]").val();
         var note = $(".note[data-id="+thisId+"]").val();
         
-        
+        $.ajax({
+            method: "POST",
+            url: "/notes/" + thisId,
+            data: {
+                title: title,
+                body: note
+            }
+        })
+        .done(function(data) {
+            // Log the response
+            console.log(data);
+        });
     }
 
     $("#unSaveBtn").click(unsaveArticle);

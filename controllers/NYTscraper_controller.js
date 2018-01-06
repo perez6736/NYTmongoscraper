@@ -99,7 +99,29 @@ router.post("/unsave/:id", function(req, res){
 });
 
 router.post("/notes/:id", function(req, res){
-    // on the handlebars file make sure to make the title a panel header and the note a panel body maybe with a save note button. 
+    // update the note table using the id passed in 
+    console.log(req.body);
+
+    db.Note
+    .create(req.body)
+    .then(function(dbNote) {
+      return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
+    })
+    .then(function(dbArticle) {
+      // If we were able to successfully update an Article, send it back to the client
+      console.log(dbArticle);
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+
+});
+
+router.get("/notes/:id", function(req, res){
+    //get the notes related to a certain article and send it to client
+
 });
 
 module.exports = router;
