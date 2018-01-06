@@ -15,8 +15,8 @@
           <div class="panel-body" id="well-section">
               {{#each articles}}
               <div class="panel panel-default">
-                <div class="panel-body" data-id = {{id}}> {{title}} 
-                    <button class = "btn btn-primary saveArticle" type="save">Save Article </button>
+                <div class="panel-body"> {{title}}
+                    <button class = "btn btn-primary saveArticle" data-id = {{_id}} type="save">Save Article </button>
                 </div>
               </div>
               {{/each}}
@@ -24,6 +24,6 @@
         </div>
       </div>
     </div>
-    <button class = "btn btn-primary" id = "scrapeBtn" type="scrape">Search for Atricles</button>
-    <button class = "btn btn-primary" id = "viewSavedBtn" type="SavePage">View Saved Articles</button>
+    <a href="/save"> <button class = "btn btn-primary" id = "viewSavedBtn" type="SavePage"> View Saved Articles  </button></a>
+    <a href="/scrape"> <button class = "btn btn-primary" id = "viewSavedBtn" type="SavePage"> Search for Atricles  </button></a>
   </div>

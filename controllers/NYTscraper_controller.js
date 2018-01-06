@@ -18,14 +18,14 @@ mongoose.connect("mongodb://localhost/NYTscraper");
 
 // get from database and send to user.
 router.get("/", function(req, res){
-    db.Article.find({}, function(dbArticles){
-        console.log("grabbing from db");
-        console.log(dbArticles);
+    db.Article.find({}, function(){
 
         // dummy data 
         var articles =[{id: "1", title: "this is a title", link: "thisthelink.com"},{id: "2", title: "this is a title2", link: "thisthelink.com"},{id: "3", title: "this is a title3", link: "thisthelink.com"}]
 
-        res.render("index", {articles: articles});
+        // what we will put here later is to tell the user to scrpae the page using the button. 
+        res.render("index");
+        //{articles: [{title: "No articles. Please scrape the NYT site by pressing the scrape button."}]})
     })
 });
 
@@ -36,50 +36,46 @@ router.get("/scrape", function(req, res){
         // Then, we load that into cheerio and save it to $ for a shorthand selector
         var $ = cheerio.load(html);
 
-        // need to create object to put scraper stuff in 
-        var results = [];
-
         // grab all h2 elements with the class story-heading 
         $("h2.story-heading").each(function(i, element) {
-          // in each h2.collection we need the text of the link and the actual link 
-          var title = $(element).children("a").text();
-          var link = $(element).children("a").attr("href");
-          
-          //if the there is no link or title lets not add it to the array. 
-          if(title !='' || link != undefined){
-            results.push({
-                title: title.trim(),
-                link: link
-              });
-          }
-        });
+            // need to create object to put scraper stuff in 
+            var results = {};
 
-        console.log(results);
+            // in each h2.collection we need the text of the link and the actual link 
+            var title = $(this).children("a").text();
+            var link = $(this).children("a").attr("href");
+            
+            results.title = title
+            results.link = link
 
-        // Create a new Article using the `result` object built from scraping
-        // need to pass in an object to create - maybe for loop through all the articles? 
-        
-        for(i=0; i<results.length; i++){
+            // create a db entry for the article
             db.Article
-            .create(results[i])
+            .create(results)
             .then(function(dbArticle) {
+                res.send("Scrape Complete");
             })
             .catch(function(err) {
             });
-        }
-        // If we were able to successfully scrape and save an Article, send a message to the client
-        res.send("Scrape Complete");
 
+        });
+        //so now we need to read from the DB
+        db.Article.find({})
+        .then(function(dbArticles) {
+          // If any Books are found, send them to the client
+          console.log(dbArticles);
+          res.render("index", {articles: dbArticles});
+        })
+        .catch(function(err) {
+          // If an error occurs, send it back to the client
+          res.json(err);
+        });
     });
 
 });
 
 // send only saved articles to handlebars
 router.get("/save", function(req, res){
-    // dummy data 
-    var articles =[{id: "1", title: "this is a title", link: "thisthelink.com"},{id: "2", title: "this is a title2", link: "thisthelink.com"},{id: "3", title: "this is a title3", link: "thisthelink.com"}]
     
-     res.render("saved", {articles: articles});
     
 });
 
