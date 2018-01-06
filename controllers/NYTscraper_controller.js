@@ -21,8 +21,11 @@ router.get("/", function(req, res){
     db.Article.find({}, function(dbArticles){
         console.log("grabbing from db");
         console.log(dbArticles);
+
+        // dummy data 
         var articles =[{id: "1", title: "this is a title", link: "thisthelink.com"},{id: "2", title: "this is a title2", link: "thisthelink.com"},{id: "3", title: "this is a title3", link: "thisthelink.com"}]
-        res.render("saved", {articles: articles});
+
+        res.render("index", {articles: articles});
     })
 });
 
@@ -73,8 +76,10 @@ router.get("/scrape", function(req, res){
 
 // send only saved articles to handlebars
 router.get("/save", function(req, res){
-    // need to display the saved articles and display them for the user. 
+    // dummy data 
+    var articles =[{id: "1", title: "this is a title", link: "thisthelink.com"},{id: "2", title: "this is a title2", link: "thisthelink.com"},{id: "3", title: "this is a title3", link: "thisthelink.com"}]
     
+     res.render("saved", {articles: articles});
     
 });
 
