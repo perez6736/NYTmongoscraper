@@ -75,14 +75,27 @@ router.get("/scrape", function(req, res){
 
 // send only saved articles to handlebars
 router.get("/save", function(req, res){
-    
+    //so now we need to read from the DB
+    db.Article.find({issaved: true})
+    .then(function(dbArticles) {
+      // If any Books are found, send them to the client
+      console.log(dbArticles);
+      res.render("index", {articles: dbArticles});
+    })
+    .catch(function(err) {
+      // If an error occurs, send it back to the client
+      res.json(err);
+    });
     
 });
 
 // changed the isSaved flag of the article. 
 router.post("/save/:id", function(req, res){
     // get the id of the article and change the isSaved flag to true 
-    
+    console.log(req.body);
+    db.Article.update({_id: req.body.id}, {$set: {issaved: true}}, function(msg){
+        res.send("Saved.")
+    })
     
 });
 
