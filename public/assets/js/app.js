@@ -1,4 +1,6 @@
 $(document).ready(function(){
+    // hide the notes 
+    $(".notes").hide();
 
     // we can use this function to save AND unsave
     function saveArticle(){
@@ -39,12 +41,13 @@ $(document).ready(function(){
         });
     }
 
-    function saveNoteToArticle(){
-        //make post request to /notes and save note to the article.
+    function displayNotes(){
+        var thisId = $(this).attr("data-id");
+        $(".notes").show();
         
     }
 
     $("#unSaveBtn").click(unsaveArticle);
     $(".saveArticle").click(saveArticle);
-    $(".leaveNoteBtn").click(saveNoteToArticle);
+    $(".leaveNoteBtn").click(displayNotes);
 });

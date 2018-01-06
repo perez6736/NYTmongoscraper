@@ -15,9 +15,17 @@
           <div class="panel-body" id="well-section">
               {{#each articles}}
               <div class="panel panel-default">
-                <div class="panel-body"> {{title}} 
+                <div class="panel-heading"> {{title}} 
                     <button class = "btn btn-primary" id = "leaveNoteBtn" type="Note"  data-id = {{id}}>Leave Note</button>
                     <button class = "btn btn-primary" id = "unSaveBtn" type="unsave"  data-id = {{id}}>Unsave</button>
+                </div>
+                <div class="panel-body notes" data-id = {{id}}> 
+                    <form action="/action_page.php">
+                    Title: <input type="text" name="fname"><br>
+                    <textarea rows="4" cols="50">
+                    </textarea>
+                    <button class = "btn btn-primary saveNote" type="save"  data-id = {{id}}>Save Note</button>
+                  </form>
                 </div>
               </div>
               {{/each}}
