@@ -22,7 +22,7 @@ router.get("/", function(req, res){
         console.log("grabbing from db");
         console.log(dbArticles);
         var articles =[{id: "1", title: "this is a title", link: "thisthelink.com"},{id: "2", title: "this is a title2", link: "thisthelink.com"},{id: "3", title: "this is a title3", link: "thisthelink.com"}]
-        res.render("index", {articles: articles});
+        res.render("saved", {articles: articles});
     })
 });
 
