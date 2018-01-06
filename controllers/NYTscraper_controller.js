@@ -13,7 +13,7 @@ var cheerio = require("cheerio");
 // Connect to the Mongo DB
 mongoose.Promise = Promise;
 // change this when deploying to heroku v 
-mongoose.connect(process.env.DB_HOST);
+mongoose.connect(process.env.MONGOURL);
 
 // Routes ==========================================================
 
