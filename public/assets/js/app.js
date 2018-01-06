@@ -9,9 +9,6 @@ $(document).ready(function(){
         $.ajax({
             method: "POST",
             url: "/save/" + thisId,
-            data: {
-                id: thisId
-            }
         })
             // With that done
         .done(function(data) {
@@ -28,9 +25,6 @@ $(document).ready(function(){
         $.ajax({
             method: "POST",
             url: "/unsave/" + thisId,
-            data: {
-                id: thisId
-            }
         })
             // With that done
         .done(function(data) {
@@ -44,11 +38,23 @@ $(document).ready(function(){
         // since the note panel body has the id of the article we can just show that id
         var thisId = $(this).attr("data-id");
         $(".notes[data-id="+thisId+"]").show();
+
+        
+        $.ajax({
+            method: "GET",
+            url: "/notes/" + thisId,
+        })
+        .done(function(data) {
+            $(".title[data-id="+thisId+"]").val(data.title);
+            $(".note[data-id="+thisId+"]").val(data.body);
+        });
+
     }
     
     function hideNotePanel(){
         var thisId = $(this).attr("data-id");
         $(".notes[data-id="+thisId+"]").hide();
+
     }
 
     function saveNote(){

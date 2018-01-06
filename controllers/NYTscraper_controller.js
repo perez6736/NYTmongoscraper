@@ -12,6 +12,7 @@ var cheerio = require("cheerio");
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
 mongoose.Promise = Promise;
+// change this when deploying to heroku v 
 mongoose.connect("mongodb://localhost/NYTscraper");
 
 // Routes ==========================================================
@@ -121,7 +122,19 @@ router.post("/notes/:id", function(req, res){
 
 router.get("/notes/:id", function(req, res){
     //get the notes related to a certain article and send it to client
-
+    db.Article
+    .findOne({ _id: req.params.id })
+    // ..and populate all of the notes associated with it
+    .populate("note")
+    .then(function(dbArticle) {
+      // If we were able to successfully find an Article with the given id, send it back to the client
+      console.log(dbArticle.note)
+      res.json(dbArticle.note);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
 });
 
 module.exports = router;
