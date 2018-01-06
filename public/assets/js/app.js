@@ -39,6 +39,12 @@ $(document).ready(function(){
         });
     }
 
+    function saveNoteToArticle(){
+        //make post request to /notes and save note to the article.
+        
+    }
+
     $("#unSaveBtn").click(unsaveArticle);
     $(".saveArticle").click(saveArticle);
+    $(".leaveNoteBtn").click(saveNoteToArticle);
 });

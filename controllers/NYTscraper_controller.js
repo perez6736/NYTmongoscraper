@@ -99,4 +99,8 @@ router.post("/unsave/:id", function(req, res){
     })
 });
 
+router.post("/notes/:id", function(req, res){
+    // on the handlebars file make sure to make the title a panel header and the note a panel body maybe with a save note button. 
+});
+
 module.exports = router;
