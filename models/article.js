@@ -6,6 +6,7 @@ var Articleschema = new Schema({
 	title: {
 		type: String,
 		required: true,
+		unique: true //we want unique titles. 
 	},
 	link: {
 		type: String,

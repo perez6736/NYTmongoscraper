@@ -16,7 +16,18 @@ mongoose.connect("mongodb://localhost/NYTscraper");
 
 // Routes ==========================================================
 
+// get from database and send to user.
 router.get("/", function(req, res){
+    db.Article.find({}, function(dbArticles){
+        console.log("grabbing from db");
+        console.log(dbArticles);
+        var articles =[{id: "1", title: "this is a title", link: "thisthelink.com"},{id: "2", title: "this is a title2", link: "thisthelink.com"},{id: "3", title: "this is a title3", link: "thisthelink.com"}]
+        res.render("index", {articles: articles});
+    })
+});
+
+//scrape and save to db
+router.get("/scrape", function(req, res){
 
     request("https://www.nytimes.com", function(error, response, html){
         // Then, we load that into cheerio and save it to $ for a shorthand selector
@@ -44,29 +55,30 @@ router.get("/", function(req, res){
 
         // Create a new Article using the `result` object built from scraping
         // need to pass in an object to create - maybe for loop through all the articles? 
+        
         for(i=0; i<results.length; i++){
             db.Article
             .create(results[i])
             .then(function(dbArticle) {
-                // If we were able to successfully scrape and save an Article, send a message to the client
-                res.send("Scrape Complete");
             })
             .catch(function(err) {
-                // If an error occurred, send it to the client
-                res.json(err);
             });
         }
+        // If we were able to successfully scrape and save an Article, send a message to the client
+        res.send("Scrape Complete");
 
     });
 
 });
 
+// send only saved articles to handlebars
 router.get("/save", function(req, res){
     // need to display the saved articles and display them for the user. 
     
     
 });
 
+// changed the isSaved flag of the article. 
 router.post("/save/:id", function(req, res){
     // get the id of the article and change the isSaved flag to true 
     
