@@ -85,8 +85,7 @@ router.get("/save", function(req, res){
 // changed the isSaved flag of the article. 
 router.post("/save/:id", function(req, res){
     // get the id of the article and change the isSaved flag to true 
-    console.log(req.body);
-    db.Article.update({_id: req.body.id}, {$set: {issaved: true}}, function(msg){
+    db.Article.update({_id: req.params.id}, {$set: {issaved: true}}, function(msg){
         res.send("status changed.")
     })
     
@@ -94,7 +93,7 @@ router.post("/save/:id", function(req, res){
 
 router.post("/unsave/:id", function(req, res){
     // get the id of the article and change the isSaved flag to true 
-    db.Article.update({_id: req.body.id}, {$set: {issaved: false}}, function(msg){
+    db.Article.update({_id: req.params.id}, {$set: {issaved: false}}, function(msg){
         res.send("status changed.")
     })
 });

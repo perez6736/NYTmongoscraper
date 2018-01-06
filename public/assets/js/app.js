@@ -44,17 +44,25 @@ $(document).ready(function(){
     function displayNotePanel(){
         // since the note panel body has the id of the article we can just show that id
         var thisId = $(this).attr("data-id");
-        $("#" + thisId).show();
+        $(".notes[data-id="+thisId+"]").show();
     }
-
+    
     function hideNotePanel(){
         var thisId = $(this).attr("data-id");
-        $("#" + thisId).hide();
+        $(".notes[data-id="+thisId+"]").hide();
+    }
+
+    function saveNote(){
+        //id of article 
+        var thisId = $(this).attr("data-id");
+        var title = $('.title').attr().val();
+        var note = $('.note').attr().val();
     }
 
     $("#unSaveBtn").click(unsaveArticle);
     $(".saveArticle").click(saveArticle);
     $(".leaveNoteBtn").click(displayNotePanel);
     $(".closeNotePanelBtn").click(hideNotePanel);
+    $(".saveNote").click(saveNote);
 
 });

@@ -19,10 +19,10 @@
                     <button class = "btn btn-primary leaveNoteBtn" type="Note"  data-id = {{id}}>Leave Note</button>
                     <button class = "btn btn-primary" id = "unSaveBtn" type="unsave"  data-id = {{id}}>Unsave</button>
                 </div>
-                <div class="panel-body notes" id = {{id}}> 
+                <div class="panel-body notes" data-id = {{id}}> 
                   <div>Leave a Note</div>
-                  Title: <input type="text" name="fname"><br>
-                  <textarea rows="4" cols="50"> 
+                  Title: <input type="text" class = "title" data-id = {{id}}><br>
+                  <textarea rows="4" cols="50" class = "note" data-id = {{id}}> 
                   </textarea>
                   <br>
                   <button class = "btn btn-primary saveNote" type="save"  data-id = {{id}}>Save Note</button>
