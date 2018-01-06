@@ -55,8 +55,11 @@ $(document).ready(function(){
     function saveNote(){
         //id of article 
         var thisId = $(this).attr("data-id");
-        var title = $('.title').attr().val();
-        var note = $('.note').attr().val();
+        //
+        var title = $(".title[data-id="+thisId+"]").val();
+        var note = $(".note[data-id="+thisId+"]").val();
+        
+        
     }
 
     $("#unSaveBtn").click(unsaveArticle);
